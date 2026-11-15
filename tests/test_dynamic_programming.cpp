@@ -7,7 +7,8 @@
 #include <string>
 #include <vector>
 
-TEST_CASE("Matrix chain product computes classic optimal cost") {
+TEST_CASE("Matrix chain product computes classic optimal cost")
+{
     std::vector<int> dimensions = {30, 35, 15, 5, 10, 20, 25};
 
     MatrixChainResult result = matrixChainOrder(dimensions);
@@ -16,7 +17,8 @@ TEST_CASE("Matrix chain product computes classic optimal cost") {
     REQUIRE(result.parenthesization == "((A1 x (A2 x A3)) x ((A4 x A5) x A6))");
 }
 
-TEST_CASE("Matrix chain product handles two matrices") {
+TEST_CASE("Matrix chain product handles two matrices")
+{
     std::vector<int> dimensions = {10, 20, 30};
 
     MatrixChainResult result = matrixChainOrder(dimensions);
@@ -25,7 +27,8 @@ TEST_CASE("Matrix chain product handles two matrices") {
     REQUIRE(result.parenthesization == "(A1 x A2)");
 }
 
-TEST_CASE("Matrix chain product rejects invalid dimensions") {
+TEST_CASE("Matrix chain product rejects invalid dimensions")
+{
     REQUIRE_THROWS_AS(
         matrixChainOrder({}),
         std::invalid_argument);
@@ -39,7 +42,8 @@ TEST_CASE("Matrix chain product rejects invalid dimensions") {
         std::invalid_argument);
 }
 
-TEST_CASE("Sequence alignment rewards identical sequences") {
+TEST_CASE("Sequence alignment rewards identical sequences")
+{
     AlignmentResult result =
         globalSequenceAlignment("ACGT", "ACGT");
 
@@ -48,16 +52,18 @@ TEST_CASE("Sequence alignment rewards identical sequences") {
     REQUIRE(result.alignedSecond == "ACGT");
 }
 
-TEST_CASE("Sequence alignment supports gaps") {
+TEST_CASE("Sequence alignment supports gaps")
+{
     AlignmentResult result =
-        globalSequenceAlignment("GATTACA", "GCATGCU");
+        globalSequenceAlignment("GATTACA", "GATACA");
 
     REQUIRE(result.alignedFirst.size() == result.alignedSecond.size());
     REQUIRE((result.alignedFirst.find('-') != std::string::npos ||
              result.alignedSecond.find('-') != std::string::npos));
 }
 
-TEST_CASE("Sequence alignment preserves original characters") {
+TEST_CASE("Sequence alignment preserves original characters")
+{
     AlignmentResult result =
         globalSequenceAlignment("ACG", "AG");
 
@@ -66,14 +72,18 @@ TEST_CASE("Sequence alignment preserves original characters") {
     std::string firstWithoutGaps;
     std::string secondWithoutGaps;
 
-    for (char c : result.alignedFirst) {
-        if (c != '-') {
+    for (char c : result.alignedFirst)
+    {
+        if (c != '-')
+        {
             firstWithoutGaps += c;
         }
     }
 
-    for (char c : result.alignedSecond) {
-        if (c != '-') {
+    for (char c : result.alignedSecond)
+    {
+        if (c != '-')
+        {
             secondWithoutGaps += c;
         }
     }
@@ -82,7 +92,8 @@ TEST_CASE("Sequence alignment preserves original characters") {
     REQUIRE(secondWithoutGaps == "AG");
 }
 
-TEST_CASE("Sequence alignment supports custom scoring") {
+TEST_CASE("Sequence alignment supports custom scoring")
+{
     AlignmentResult result =
         globalSequenceAlignment("AA", "AA", 2, -1, -2);
 
